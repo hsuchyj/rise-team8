@@ -21,6 +21,10 @@
       <ul>
         <li><a href="#about"><a href= "About Page.html">ABOUT</a></a></li>
         <li> <a href="#contact"><a href = "login.html">LOGIN</a></a></li>
+        <li><a href="https://facebook.com" target="_blank"><img src="https://en.facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png" style="position:relative; top:-5px;" width="35" height="30"></a></li>
+				<li><a href="https://aboutme.google.com/u/0/?referer=gplus" target="_blank"><img src="http://icons.iconarchive.com/icons/franksouza183/fs/512/Apps-google-chrome-icon.png" style="position:relative; top:-8px;" width="35" height="35"></a></li>
+				<li><a href="https://twitter.com/" target="_blank"><img src="/images/Twitter_Social_Icon_Circle_Color.png" style="position:relative; top:-7px;" width="35" height="33"></a></li>
+				<li><a href="https://youtube.com" target="_blank"><img src="/images/Youtube-128.png" style="position:relative; top:-10px;" width="33" height="40"></a></li>
       </ul>
     </nav>
   </header>
