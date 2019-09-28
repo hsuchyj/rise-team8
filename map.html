@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -127,17 +127,18 @@
         // set up the style rules and events for google.maps.Data
         map.data.setStyle(styleFeature);
         map.data.addListener('mouseover', mouseInToRegion);
-        map.data.addListener('mouseout', mouseOutOfRegion);
+          map.data.addListener('mouseout', mouseOutOfRegion);
+          console.log(map.data);
 
         // wire up the button
         var selectBox = document.getElementById('map-cate');
         var selectBox2 = document.getElementById('map-sort');
         google.maps.event.addDomListener(selectBox, 'change', function() {
-          clearCensusData();
-          loadCensusData(selectBox.options[selectBox.selectedIndex].value,selectBox2.options[selectBox2.selectedIndex].value);
+          //clearCensusData();
+          //loadCensusData(selectBox.options[selectBox.selectedIndex].value,selectBox2.options[selectBox2.selectedIndex].value);
         });
         google.maps.event.addDomListener(selectBox2, 'change', function() {
-          clearCensusData();
+          //clearCensusData();
 
         if(selectBox2.options[selectBox2.selectedIndex].value.includes("_rank") ) {
           selectBox.disabled=true;
@@ -148,7 +149,7 @@
           
         }
           //if($("#map-sort option:selected").val() == "_rank")
-          loadCensusData(selectBox.options[selectBox.selectedIndex].value,selectBox2.options[selectBox2.selectedIndex].value);
+          //loadCensusData(selectBox.options[selectBox.selectedIndex].value,selectBox2.options[selectBox2.selectedIndex].value);
         });
 
         // state polygons only need to be loaded once, do them now
@@ -170,7 +171,7 @@
       function loadCensusData(v1,v2) {
         // load the requested variable from the census API (using local copies)
         var xhr = new XMLHttpRequest(), v;
-        console.log(v1,v2)
+        console.log(v1,v2);
         var quality = false
         switch(v2) {
           case "_contributions_percapita":
@@ -279,6 +280,7 @@
        */
       function mouseInToRegion(e) {
         // set the hover state so the setStyle function can change the border
+          console.log(e);
         e.feature.setProperty('state', 'hover');
 
         var percent = (Number(e.feature.getProperty('map-cate')) - censusMin) /
@@ -306,7 +308,7 @@
 
     </script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCp5rKk4D0k1W75O_FB-CT9YMdGLoBN360&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC7Mj-9VF36fspqreamYkBjuz6uG7PsC4&callback=initMap">
     </script>
   </body>
 </html>
