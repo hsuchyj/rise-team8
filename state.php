@@ -2,6 +2,7 @@
 include "cleardb.php";
 
 echo trim($_REQUEST["state"]);
+/*
 $result = $conn->query("select * from state_leg where state = '".trim($_REQUEST["state"])."'");
 $row = $result->fetch_row();
 
@@ -16,4 +17,5 @@ for($i = 0; $i < 5; $i++)
 {
 	echo $labels[$i] . ": " $row[$i] . "<br>";
 }
+*/
 ?>
