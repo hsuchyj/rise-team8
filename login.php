@@ -86,13 +86,6 @@
 						<a class="btn" href="Rise Home Page.php"> Home Page</a>
 					</div>
 					<div class="flex-col-c p-t-155">
-						<span class="txt1 p-b-17">
-							Or Sign Up Using
-						</span>
-
-						<a href="Accountingreg.html" class="txt2">
-							Sign Up
-						</a>
 					</div>
 				</form>
 			</div>
