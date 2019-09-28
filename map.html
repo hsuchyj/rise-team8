@@ -1,105 +1,106 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>State Foo</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Google Maps</title>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=AIzaSyCC7Mj-9VF36fspqreamYkBjuz6uG7PsC4" type="text/javascript"></script>
+    <script src="poly.js" type="text/javascript"></script>
+</head>
+<body onunload="GUnload()">
 
-    <script src="coords.js" type="text/javascript"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js" type="text/javascript"></script>
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC7Mj-9VF36fspqreamYkBjuz6uG7PsC4&callback=initMap">
-    </script>
-    <style>
-        html, body, #map-canvas {
-            height: 100%;
-            margin: 0px;
-            padding: 0px
-        }
 
-        .label {
-            color: red;
-            background-color: white;
-            font-family: "Lucida Grande", "Arial", sans-serif;
-            font-size: 11px;
-            font-weight: bold;
-            text-align: center;
-            border: 2px solid black;
-            white-space: nowrap;
-            padding: 2px 5px;
-        }
-    </style>
+    <div id="map" style="width: 800px; height: 600px"></div>
+
+
+    <noscript>
+        <b>JavaScript must be enabled in order for you to use Google Maps.</b>
+        However, it seems JavaScript is either disabled or not supported by your browser.
+        To view Google Maps, enable JavaScript by changing your browser options, and then
+        try again.
+    </noscript>
+
 
     <script type="text/javascript">
-        function createPolygonWithLabel(map, label, points) {
-            // The state outline polygon, drawn by coordinates..
-            var polygon = new google.maps.Polygon({
-                fillColor: '#FF0000',
-                fillOpacity: 0.35,
-                map: map,
-                paths: points,
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 3
-            });
-            // The label that pops up when the mouse moves within each polygon.
-            var marker = new MarkerWithLabel({
-                labelContent: label,
-                labelClass: 'label',
-                labelStyle: {
-                    opacity: 1.0
-                },
-                position: new google.maps.LatLng(0, 0),  // a LatLng is required
-                draggable: false,
-                raiseOnDrag: false,
-                map: map,
-                icon: 'http://placehold.it/1x1',  // disable marker pin icon
-                visible: false
-            });
-            // When the mouse moves within the polygon, display the label and change the BG color.
-            google.maps.event.addListener(polygon, "mousemove", function (event) {
-                marker.setPosition(event.latLng);
-                marker.setVisible(true);
-                polygon.setOptions({
-                    fillColor: "#00FF00"
-                });
-            });
-            // WHen the mouse moves out of the polygon, hide the label and change the BG color.
-            google.maps.event.addListener(polygon, "mouseout", function (event) {
-                marker.setVisible(false);
-                polygon.setOptions({
-                    fillColor: "#FF0000"
-                });
-            });
-            return polygon;
-        }
-        function initialize() {
-            var mapOptions = {
-                zoom: 4,
-                center: new google.maps.LatLng(23, -101),
-                mapTypeId: google.maps.MapTypeId.TERRAIN
-            },
-                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions),
-                j;
-            for (var i = 0; i < stateCoords.length; i++) {
-                var coords = [],
-                    label = stateCoords[i][0],
-                    points = stateCoords[i][1];
-                for (j = 0; j < points.length; j++) {
-                    coords.push(
-                        new google.maps.LatLng(points[j][0], points[j][1])
-                    )
+        //<![CDATA[
+
+        if (GBrowserIsCompatible()) {
+
+            var polys = [];
+            var labels = [];
+
+            // Display the map, with some controls and set the initial location
+            var map = new GMap2(document.getElementById("map"));
+            map.addControl(new GLargeMapControl());
+            map.addControl(new GMapTypeControl());
+            map.setCenter(new GLatLng(42.16, -100.72), 4);
+
+            GEvent.addListener(map, "click", function (overlay, point) {
+                var T1 = new Date();
+                if (!overlay) {
+                    for (var i = 0; i < polys.length; i++) {
+                        if (polys[i].Contains(point)) {
+                            var area = polys[i].Area() / 1000000;
+                            var sqmiles = area / 2.58998811;
+                            var T2 = new Date();
+                            map.openInfoWindowHtml(point, "You clicked on " + labels[i] + "<br>The area of " + labels[i] + " is " + parseInt(area)
+                                + " sq km.<br>that's " + parseInt(sqmiles) + " square miles<br>"
+                                + "Its boundary is " + parseInt(polys[i].Distance() / 1609.344) + " miles long"
+                                + "<hr>Time taken = " + (T2.getTime() - T1.getTime()) + " milliseconds"
+                            ); i = 999; // Jump out of loop
+                        }
+                    }
                 }
-                createPolygonWithLabel(map, label, coords);
+            });
+
+            // Read the data from states.xml
+            var request = GXmlHttp.create();
+            request.open("GET", "states.xml", true);
+            request.onreadystatechange = function () {
+                if (request.readyState == 4) {
+                    var xmlDoc = GXml.parse(request.responseText);
+                    // ========= Now process the polylines ===========
+                    var states = xmlDoc.documentElement.getElementsByTagName("state");
+
+                    // read each line
+                    for (var a = 0; a < states.length; a++) {
+                        // get any state attributes
+                        var label = states[a].getAttribute("name");
+                        var colour = states[a].getAttribute("colour");
+                        // read each point on that line
+                        var points = states[a].getElementsByTagName("point");
+                        var pts = [];
+                        for (var i = 0; i < points.length; i++) {
+                            pts[i] = new GLatLng(parseFloat(points[i].getAttribute("lat")),
+                                parseFloat(points[i].getAttribute("lng")));
+                        }
+                        var poly = new GPolygon(pts, "#000000", 1, 1, colour, 0.5, { clickable: false });
+                        polys.push(poly);
+                        labels.push(label);
+                        map.addOverlay(poly);
+                    }
+                    // ================================================
+                }
             }
+            request.send(null);
         }
-        google.maps.event.addDomListener(window, 'load', initialize);
+
+        // display a warning if the browser was not compatible
+        else {
+            alert("Sorry, the Google Maps API is not compatible with this browser");
+        }
+
+        // This Javascript is based on code provided by the
+        // Community Church Javascript Team
+        // http://www.bisphamchurch.org.uk/
+        // http://econym.org.uk/gmap/
+
+
+        //]]>
     </script>
-</head>
-<body>
-    <div id="map-canvas"></div>
 </body>
+
 </html>
+
+
+
+
