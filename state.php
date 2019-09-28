@@ -5,6 +5,7 @@
 <link href="css/multiColumnTemplate.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<div class="container"> 
 <header>
     <h4 class="logo"> RISE </h4>
     <nav>
@@ -44,5 +45,6 @@ foreach($row as $col)
 
 ?>
 <div class="copyright">&copy;2019 - <strong> JPMorgan Code for Good </strong></div>
+</div>
 </body>
 </html>
