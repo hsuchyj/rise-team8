@@ -47,7 +47,7 @@ $_SESSION["score"] = $_SESSION["score"] + 1;
 
   <div class="button"><a href="Rise Home Page.php" style="text-decoration:none"><font color=#000000> Logout </font></a></div>
   <div class="button-holder">
-		<a class="btn" href="map.php"> Next Page</a>
+		<a class="btn" href="map.html"> Next Page</a>
 	</div>
   <div class="copyright">&copy;2019 - <strong> JPMorgan Code for Good </strong></div>
 </div>
