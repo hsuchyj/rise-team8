@@ -2,31 +2,20 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 60%;
-  height: 60%;
-  border-radius: 24px;
-}
-
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-img {
-  border-radius: 8px 8px 0 0;
-}
-
-.container {
-  padding: 100px 16px;
-}
-</style>
+<link href="css/multiColumnTemplate.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="card">
-  <div class="container">
+<header>
+    <h4 class="logo"> RISE </h4>
+    <nav>
+      <ul>
+        <li><a href="#about"><a href="Rise Home Page.php">HOME</a></a></li>
+		<li><a href="#about"><a href="About Page.html">ABOUT</a></a></li>
+		<li><a href="#about"><a href="map.html">MAP</a></a></li>
+		<li><a href="#about"><a href="FAQ.html">FAQ</a></a></li>
+      </ul>
+    </nav>
+  </header>
 <?php
 include "cleardb.php";
 
@@ -54,7 +43,6 @@ foreach($row as $col)
 }
 
 ?>
-</div>
-</div>
+
 </body>
 </html>
