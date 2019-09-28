@@ -17,9 +17,11 @@ if ($mysqli->connect_errno)
 }
 
 $labels = array("state","convenes","adjourns","carryover","period");
+echo $row;
+/*
 for($i = 0; $i < 5; $i++)
 {
 	echo $labels[$i] . ": " $row[$labels[$i]] . "<br>";
 }
-
+*/
 ?>
