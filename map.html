@@ -6,6 +6,9 @@
     <title>Google Maps</title>
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=AIzaSyCC7Mj-9VF36fspqreamYkBjuz6uG7PsC4" type="text/javascript"></script>
     <script src="poly.js" type="text/javascript"></script>
+    <style>
+        html, body, #map { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+    </style>
 </head>
 <body onunload="GUnload()">
 
@@ -35,6 +38,7 @@
             map.addControl(new GMapTypeControl());
             map.setCenter(new GLatLng(42.16, -100.72), 4);
 
+            //redirect to new php page
             GEvent.addListener(map, "click", function (overlay, point) {
                 var T1 = new Date();
                 if (!overlay) {
@@ -53,31 +57,55 @@
                 }
             });
 
+            GEvent.addListener(map, "mouseover", function (overlay, point) {
+                var T1 = new Date();
+                if (!overlay) {
+                    for (var i = 0; i < polys.length; i++) {
+                        if (polys[i].Contains(point)) {
+                            var area = polys[i].Area() / 1000000;
+                            polys[i].changeColor();
+                            var sqmiles = area / 2.58998811;
+                            var T2 = new Date();
+                            map.openInfoWindowHtml(point, "You clicked on " + labels[i] + "<br>The area of " + labels[i] + " is " + parseInt(area)
+                                + " sq km.<br>that's " + parseInt(sqmiles) + " square miles<br>"
+                                + "Its boundary is " + parseInt(polys[i].Distance() / 1609.344) + " miles long"
+                                + "<hr>Time taken = " + (T2.getTime() - T1.getTime()) + " milliseconds"
+                            ); i = 999; // Jump out of loop
+                        }
+                    }
+                }
+            });
+
             // Read the data from states.xml
             var request = GXmlHttp.create();
             request.open("GET", "states.xml", true);
-            request.onreadystatechange = function () {
-                if (request.readyState == 4) {
+            request.onreadystatechange = function ()
+            {
+                if (request.readyState == 4)
+                {
                     var xmlDoc = GXml.parse(request.responseText);
                     // ========= Now process the polylines ===========
                     var states = xmlDoc.documentElement.getElementsByTagName("state");
 
                     // read each line
-                    for (var a = 0; a < states.length; a++) {
+                    for (var a = 0; a < states.length; a++)
+                    {
                         // get any state attributes
                         var label = states[a].getAttribute("name");
                         var colour = states[a].getAttribute("colour");
                         // read each point on that line
                         var points = states[a].getElementsByTagName("point");
                         var pts = [];
-                        for (var i = 0; i < points.length; i++) {
+                        for (var i = 0; i < points.length; i++)
+                        {
                             pts[i] = new GLatLng(parseFloat(points[i].getAttribute("lat")),
                                 parseFloat(points[i].getAttribute("lng")));
                         }
-                        var poly = new GPolygon(pts, "#000000", 1, 1, colour, 0.5, { clickable: false });
+                        var poly = new GPolygon(pts, "#000000", 1, 1, "white", 0.5, { clickable: false });
                         polys.push(poly);
                         labels.push(label);
                         map.addOverlay(poly);
+                     //google.maps.event.addListener(poly, "mouseover", checkHover());
                     }
                     // ================================================
                 }
@@ -88,6 +116,11 @@
         // display a warning if the browser was not compatible
         else {
             alert("Sorry, the Google Maps API is not compatible with this browser");
+        }
+
+        function checkHover()
+        {
+            console.log("works");
         }
 
         // This Javascript is based on code provided by the

@@ -233,6 +233,11 @@ GPolygon.prototype.Bearing = function(v1,v2) {
 }
 
 
+GPolygon.prototype.changeColor = function () {
+
+}
+
+
 
 
 // === Copy all the above functions to GPolyline ===
