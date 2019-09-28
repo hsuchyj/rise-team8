@@ -44,10 +44,11 @@
                 if (!overlay) {
                     for (var i = 0; i < polys.length; i++) {
 
-                        if (polys[i].Containz(point)) {
+                        if (polys[i].Containz(point)) 
+                        {
 
                             $(document).ready(function () {
-                                $('#map').load('state.php');
+                                $('#map').load('state.php',{ "state": labels[i] });
                             });
 
                             polys[i].changeColor();
