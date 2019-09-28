@@ -22,8 +22,8 @@ body {
 header {
 	width: 100%;
 	height: 5%;
-	background-color: #52bad5;
-	border-bottom: 1px solid #2C9AB7;
+	background-color: #FF5349;
+	border-bottom: 1px solid #FF5349;
 }
 .logo {
 	color: #fff;
@@ -56,24 +56,30 @@ nav ul li {
 	transition: all 0.3s linear;
 }
 ul li a {
-	color: #FFFFFF;
+	color: #000000;
 	text-decoration: none;
 }
 ul li:hover a {
-	color: #2C9AB7;
+	color: #FFFFFF;
 }
 .hero_header {
 	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 120px;
 	text-align: center;
 	margin-top: 0px;
 	margin-right: 0px;
 	margin-bottom: 0px;
 	margin-left: 0px;
-	letter-spacing: 4px;
+	letter-spacing: 10px;
 }
 /* Hero Section */
 .hero {
-	background-color: #B3B3B3;
+	background-image: url("../Home.jpg");
+	background-size: cover;
+	background-position: top;
+	width: 100%;
+	height: 20%;
 	padding-top: 150px;
 	padding-bottom: 150px;
 }
@@ -91,14 +97,15 @@ ul li:hover a {
 }
 /* About Section */
 .text_column {
-	width: 29%;
+	width: 95%;
 	text-align: justify;
 	font-weight: lighter;
+	font-size: 25px;
 	line-height: 25px;
 	float: left;
 	padding-left: 20px;
 	padding-right: 20px;
-	color: #A3A3A3;
+	color: #000000;
 }
 .about {
 	padding-left: 25px;
@@ -111,15 +118,14 @@ ul li:hover a {
 /* Stats Gallery */
 .stats {
 	color: #717070;
+	font-size: 50px;
 	margin-bottom: 5px;
 }
 .gallery {
-	clear: both;
 	display: inline-block;
 	width: 100%;
 	background-color: #FFFFFF;
-	/* [disabled]min-width: 400px;
-*/
+	padding-left: 120px;
 	padding-bottom: 35px;
 	padding-top: 0px;
 	margin-top: -5px;
@@ -132,6 +138,7 @@ ul li:hover a {
 	margin-top: 35px;
 }
 .gallery .thumbnail h4 {
+	font-size: 20px;
 	margin-top: 5px;
 	margin-right: 5px;
 	margin-bottom: 5px;
@@ -144,70 +151,6 @@ ul li:hover a {
 	margin-bottom: 0px;
 	margin-left: 0px;
 	color: #A3A3A3;
-}
-/* Parallax Section */
-.banner {
-	background-color: #2D9AB7;
-	background-image: url(../images/parallax.png);
-	height: 400px;
-	background-attachment: fixed;
-	background-size: cover;
-	background-repeat: no-repeat;
-}
-.parallax {
-	color: #FFFFFF;
-	text-align: right;
-	padding-right: 100px;
-	padding-top: 110px;
-	letter-spacing: 2px;
-	margin-top: 0px;
-}
-.parallax_description {
-	color: #FFFFFF;
-	text-align: right;
-	padding-right: 100px;
-	width: 30%;
-	float: right;
-	font-weight: lighter;
-	line-height: 23px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
-}
-/* More info */
-footer {
-	background-color: #FFFFFF;
-	padding-bottom: 35px;
-}
-.footer_column {
-	width: 50%;
-	text-align: center;
-	padding-top: 30px;
-	float: left;
-}
-footer .footer_column h3 {
-	color: #B3B3B3;
-	text-align: center;
-}
-footer .footer_column p {
-	color: #717070;
-	background-color: #FFFFFF;
-}
-.cards {
-	width: 100%;
-	height: auto;
-	max-width: 400px;
-	max-height: 200px;
-}
-footer .footer_column p {
-	padding-left: 30px;
-	padding-right: 30px;
-	text-align: justify;
-	line-height: 25px;
-	font-weight: lighter;
-	margin-left: 20px;
-	margin-right: 20px;
 }
 .button {
 	width: 200px;
@@ -238,7 +181,7 @@ footer .footer_column p {
 	text-align: center;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	background-color: #717070;
+	background-color: #FF5349;
 	color: #FFFFFF;
 	text-transform: uppercase;
 	font-weight: lighter;
@@ -257,7 +200,7 @@ footer {
 	display: inline-block;
 }
 .hidden {
-	display: none;
+	display: contents;
 }
 
 /* Mobile */
@@ -291,7 +234,7 @@ nav ul li {
 }
 .text_column {
 	width: 100%;
-	text-align: justify;
+	text-align: left;
 	padding-top: 0px;
 	padding-right: 0px;
 	padding-bottom: 0px;
