@@ -6,6 +6,15 @@ CREATE TABLE `users` (
 
 /* 0=admin
    1= user */ 
+INSERT INTO `Team_8`.`users`
+(`username`,
+`passwrd`,
+`user_role`)
+VALUES
+({username: 'JohnSmith7','PMahomes15', 'MaryPoppins2','MuhammadWong12', 'JakeRyan3' },
+{passwrd: 'Password','football', 'flyingumbrella','code4good' , 'jpmorgan'},
+<user_role: 0, 1});
+
 
 SELECT `users`.`username`,
     `users`.`passwrd`,
