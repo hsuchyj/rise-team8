@@ -43,6 +43,6 @@ foreach($row as $col)
 }
 
 ?>
-
+<div class="copyright">&copy;2019 - <strong> JPMorgan Code for Good </strong></div>
 </body>
 </html>
