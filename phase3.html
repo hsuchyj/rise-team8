@@ -1,18 +1,5 @@
 <!doctype html>
 <html>
-<?php
-include "cleardb.php";
-
-//echo "bad";
-//add user authentication here
-$result = $conn->query("select * from users");
-while ($row = $result->fetch_row()) 
-{
-        //echo $row[0];
-}
-//echo $_POST["username"];
-
-?>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,23 +29,20 @@ while ($row = $result->fetch_row())
   	<div id="myBar"> 0% </div> 
   </div>
   <section class="about" id="about">
-	<h2 class="hidden"> Phase 1: Research Phase </h2>
-    <p class="text_column"> Discover Your Passion & Find Your Voice </p>
-	<p class="text_column"> Research the Legislative Landscape in Your State </p>
-	<p class="text_column"> Confirm Deadlines (drafting & introducing bills, committee sessions, floor votes) </p>
+	<h2 class="hidden"> Phase 3: Story Telling Phase </h2>
+    <p class="text_column"> Create Draft Language for Your Bill </p>
+	<p class="text_column"> Leverage Media to Help Tell Your Story, Continue to Build Relationships & Find Co-Sponsors </p>
+	<p class="text_column"> Share Your Personal Story to Help Influence Action by Testifying to Legislators </p>
   </section>
-
+	
   <section class="about" id="about">
     <h2 class="hidden"> Congratulations! You have done your research, built a strong coalition, shared your story and officially created a law! This is the power of hope! #RiseUp! 
       If you have done all of the above statements, please hit "Next page" button to continue.</h2>
   </section>
 
-  <div class="button"><a href="Rise Home Page.html" style="text-decoration:none"><font color=#000000> Logout </font></a></div>
+  <div class="button"><a href="Rise Home Page.php" style="text-decoration:none"><font color=#000000> Logout </font></a></div>
   <div class="button-holder">
-						<a class="btn" href="Rise Home Page.php"> Home Page</a>
-  </div>
-  <div class="button-holder">
-						<a class="btn" href="phase2.html"> Next Page</a>
+		<a class="btn" href="phase4.html"> Next Page</a>
 	</div>
   <div class="copyright">&copy;2019 - <strong> JPMorgan Code for Good </strong></div>
 </div>
