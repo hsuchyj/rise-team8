@@ -1,10 +1,10 @@
 <?php
 include "cleardb.php";
 
-echo trim($_REQUEST["state"]);
+//echo trim($_REQUEST["state"]);
 
 $q = "select * from state_leg where state = '".trim($_REQUEST["state"])."'";
-echo $q;
+//echo $q;
 
 $result = $conn->query($q);
 
@@ -19,7 +19,7 @@ if ($mysqli->connect_errno)
 $labels = array("state","convenes","adjourns","carryover","period");
 for($i = 0; $i < 5; $i++)
 {
-	//echo $labels[$i] . ": " $row[$i] . "<br>";
+	echo $labels[$i] . ": " $row[$labels[$i]] . "<br>";
 }
 
 ?>
