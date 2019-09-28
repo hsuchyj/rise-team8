@@ -4,6 +4,8 @@ include "cleardb.php";
 echo trim($_REQUEST["state"]);
 
 $q = "select * from state_leg where state = '".trim($_REQUEST["state"])."'";
+echo $q;
+/*
 $result = $conn->query($q);
 
 $row = $result->fetch_row();
