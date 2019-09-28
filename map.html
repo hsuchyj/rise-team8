@@ -23,7 +23,7 @@
         try again.
     </noscript>
 
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         //<![CDATA[
 
@@ -38,12 +38,19 @@
             map.addControl(new GMapTypeControl());
             map.setCenter(new GLatLng(42.16, -100.72), 4);
 
-            //redirect to new php page
+            //add redirect to new php page
             GEvent.addListener(map, "click", function (overlay, point) {
                 var T1 = new Date();
                 if (!overlay) {
                     for (var i = 0; i < polys.length; i++) {
-                        if (polys[i].Contains(point)) {
+
+                        if (polys[i].Containz(point)) {
+
+                            $(document).ready(function () {
+                                $('#map').load('state.php');
+                            });
+
+                            polys[i].changeColor();
                             var area = polys[i].Area() / 1000000;
                             var sqmiles = area / 2.58998811;
                             var T2 = new Date();
@@ -55,35 +62,29 @@
                         }
                     }
                 }
+
             });
 
-            for (var i = 0; i < polys.length; i++)
-            {
-                console.log(polys[i]);
-            }
+
 
             // Read the data from states.xml
             var request = GXmlHttp.create();
             request.open("GET", "states.xml", true);
-            request.onreadystatechange = function ()
-            {
-                if (request.readyState == 4)
-                {
+            request.onreadystatechange = function () {
+                if (request.readyState == 4) {
                     var xmlDoc = GXml.parse(request.responseText);
                     // ========= Now process the polylines ===========
                     var states = xmlDoc.documentElement.getElementsByTagName("state");
 
                     // read each line
-                    for (var a = 0; a < states.length; a++)
-                    {
+                    for (var a = 0; a < states.length; a++) {
                         // get any state attributes
                         var label = states[a].getAttribute("name");
                         var colour = states[a].getAttribute("colour");
                         // read each point on that line
                         var points = states[a].getElementsByTagName("point");
                         var pts = [];
-                        for (var i = 0; i < points.length; i++)
-                        {
+                        for (var i = 0; i < points.length; i++) {
                             pts[i] = new GLatLng(parseFloat(points[i].getAttribute("lat")),
                                 parseFloat(points[i].getAttribute("lng")));
                         }
@@ -91,7 +92,7 @@
                         polys.push(poly);
                         labels.push(label);
                         map.addOverlay(poly);
-                     //GEvent.addListener(poly, "mouseover", checkHover());
+                        //GEvent.addListener(poly, "mouseover", checkHover());
                     }
                     // ================================================
                 }
@@ -104,18 +105,17 @@
             alert("Sorry, the Google Maps API is not compatible with this browser");
         }
 
-        function checkHover()
-        {
+        function checkHover() {
             console.log("works");
         }
 
-        // This Javascript is based on code provided by the
-        // Community Church Javascript Team
-        // http://www.bisphamchurch.org.uk/
-        // http://econym.org.uk/gmap/
+            // This Javascript is based on code provided by the
+            // Community Church Javascript Team
+            // http://www.bisphamchurch.org.uk/
+            // http://econym.org.uk/gmap/
 
 
-        //]]>
+            //]]>
     </script>
 </body>
 

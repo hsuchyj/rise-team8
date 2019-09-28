@@ -79,7 +79,7 @@ GPolygon.prototype.Store = function() {
 // === A method for testing if a point is inside a polygon
 // === Returns true if poly contains point
 // === Algorithm shamelessly stolen from http://alienryderflex.com/polygon/ 
-GPolygon.prototype.Contains = function(point) {
+GPolygon.prototype.Containz = function(point) {
   if (!this._EPoly) {this.Store();}
   if (!this._EPoly.Bounds.containsLatLng(point)) {return false;}
   var j=0;
@@ -235,8 +235,10 @@ GPolygon.prototype.Bearing = function(v1,v2) {
 }
 
 
-GPolygon.prototype.changeColor = function () {
-		console.log("change");
+GPolygon.prototype.changeColor = function (wow) {
+    this.a.fillColor = "red";
+    //myPolygon.setOptions({ strokeWeight: 6.0 });
+		console.log(this);
 }
 
 
@@ -244,7 +246,7 @@ GPolygon.prototype.changeColor = function () {
 
 // === Copy all the above functions to GPolyline ===
 GPolyline.prototype.Store                = GPolygon.prototype.Store;
-GPolyline.prototype.Contains             = GPolygon.prototype.Contains;
+GPolyline.prototype.Containz             = GPolygon.prototype.Containz;
 GPolyline.prototype.Area                 = GPolygon.prototype.Area;
 GPolyline.prototype.Distance             = GPolygon.prototype.Distance;
 GPolyline.prototype.Bounds               = GPolygon.prototype.Bounds;
