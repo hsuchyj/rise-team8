@@ -1,7 +1,7 @@
 <?php
 include "cleardb.php";
 
-$result = $conn->query("select * from state_leg where state = '".$_REQUEST["state"] ."'");
+$result = $conn->query("select * from state_leg where state = '".trim($_REQUEST["state"])."'");
 $row = $result->fetch_row();
 
 if ($mysqli->connect_errno) 
