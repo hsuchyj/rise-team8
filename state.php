@@ -19,7 +19,8 @@
   </header>
 <?php
 include "cleardb.php";
-
+session_start();
+$_SESSION["score"] = $_SESSION["score"] + 1;
 //echo trim($_REQUEST["state"]);
 
 $q = "select * from state_leg where state = '".trim($_REQUEST["state"])."'";
@@ -35,6 +36,7 @@ if ($mysqli->connect_errno)
     exit();
 }
 
+echo '<div id="myBar"><h1>Your Score is: <b>'. $_SESSION["score"]  . '</b> <br> Keep learning about the legislative calendar for a high score!</h1></div>';
 $labels = array("state","convenes","adjourns","carryover","period");
 $i =0;
 foreach($row as $col)
