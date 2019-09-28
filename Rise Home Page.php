@@ -42,11 +42,10 @@
     <p class="text_column"> The Hopeanomics™ organizing curriculum serves as the blueprint to drive democracy and scale hope that can easily be applied to other social issues, empowering ordinary citizens to pen their own civil rights into existence. By gamifying the process of law-making, Rise has innovated hope and democratized power.</p>
 	
 	 <p class="text_column"> Currently, no organization provides comprehensive social movement acceleration to assist activists in establishing a campaign, equipping boots on the ground with tools, gamifying the legislative process and coaching grassroots efforts as they discover their voice. Until now. </p>
+  <p class="text_column"> Track Record: The Most Successful Legislative Reform Movement in U.S. History </p>
   </section>
   <!-- Stats Gallery Section -->
-  <section class="about" id="about">
-  	<h2 class="hidden"> Track Record: The Most Successful Legislative Reform Movement in U.S. History </h2>	
-  </section>
+  
   <div class="gallery">
     <div class="thumbnail">
       <h1 class="stats"> 27+ </h1>
