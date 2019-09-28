@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
 include "cleardb.php";
 
@@ -7,9 +9,6 @@ while ($row = $result->fetch_row()) {
         echo $row["username"];
     }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
 	<title>Login V4</title>
 	<meta charset="UTF-8">
