@@ -97,7 +97,8 @@ GPolygon.prototype.Contains = function(point) {
         oddNodes = !oddNodes
       }
     }
-  }
+    }
+    console.log("dog");
   return oddNodes;
 }
 
@@ -228,13 +229,14 @@ GPolygon.prototype.Bearing = function(v1,v2) {
   var lon2 = to.lngRadians();
   var angle = - Math.atan2( Math.sin( lon1 - lon2 ) * Math.cos( lat2 ), Math.cos( lat1 ) * Math.sin( lat2 ) - Math.sin( lat1 ) * Math.cos( lat2 ) * Math.cos( lon1 - lon2 ) );
   if ( angle < 0.0 ) angle  += Math.PI * 2.0;
-  angle = angle * 180.0 / Math.PI;
+    angle = angle * 180.0 / Math.PI;
+
   return parseFloat(angle.toFixed(1));
 }
 
 
 GPolygon.prototype.changeColor = function () {
-
+		console.log("change");
 }
 
 
@@ -250,3 +252,4 @@ GPolyline.prototype.GetPointAtDistance   = GPolygon.prototype.GetPointAtDistance
 GPolyline.prototype.GetPointsAtDistance  = GPolygon.prototype.GetPointsAtDistance;
 GPolyline.prototype.GetIndexAtDistance   = GPolygon.prototype.GetIndexAtDistance;
 GPolyline.prototype.Bearing              = GPolygon.prototype.Bearing;
+GPolyline.prototype.changeColor = GPolygon.prototype.changeColor;

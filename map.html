@@ -57,24 +57,10 @@
                 }
             });
 
-            GEvent.addListener(map, "mouseover", function (overlay, point) {
-                var T1 = new Date();
-                if (!overlay) {
-                    for (var i = 0; i < polys.length; i++) {
-                        if (polys[i].Contains(point)) {
-                            var area = polys[i].Area() / 1000000;
-                            polys[i].changeColor();
-                            var sqmiles = area / 2.58998811;
-                            var T2 = new Date();
-                            map.openInfoWindowHtml(point, "You clicked on " + labels[i] + "<br>The area of " + labels[i] + " is " + parseInt(area)
-                                + " sq km.<br>that's " + parseInt(sqmiles) + " square miles<br>"
-                                + "Its boundary is " + parseInt(polys[i].Distance() / 1609.344) + " miles long"
-                                + "<hr>Time taken = " + (T2.getTime() - T1.getTime()) + " milliseconds"
-                            ); i = 999; // Jump out of loop
-                        }
-                    }
-                }
-            });
+            for (var i = 0; i < polys.length; i++)
+            {
+                console.log(polys[i]);
+            }
 
             // Read the data from states.xml
             var request = GXmlHttp.create();
@@ -105,7 +91,7 @@
                         polys.push(poly);
                         labels.push(label);
                         map.addOverlay(poly);
-                     //google.maps.event.addListener(poly, "mouseover", checkHover());
+                     //GEvent.addListener(poly, "mouseover", checkHover());
                     }
                     // ================================================
                 }
