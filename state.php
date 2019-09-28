@@ -5,7 +5,7 @@ echo trim($_REQUEST["state"]);
 
 $q = "select * from state_leg where state = '".trim($_REQUEST["state"])."'";
 echo $q;
-/*
+
 $result = $conn->query($q);
 
 $row = $result->fetch_row();
@@ -21,5 +21,5 @@ for($i = 0; $i < 5; $i++)
 {
 	echo $labels[$i] . ": " $row[$i] . "<br>";
 }
-*/
+
 ?>
