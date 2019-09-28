@@ -1,5 +1,9 @@
 <!doctype html>
 <html>
+<?php
+$_SESSION["score"] = $_SESSION["score"] + 1;
+
+?>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,14 +30,13 @@
   </header>
 	
   <div id="myProgress">
-  	<div id="myBar"> 0% </div> 
+  	<?php echo '<div id="myBar">'. $_SESSION["score"]  . '</div>'; ?> 
   </div>
   <section class="about" id="about">
-	<h2 class="hidden"> Phase 4: Law Making Phase </h2>
-    <p class="text_column"> Committee Debates & Votes on Bill </p>
-	<p class="text_column"> Target Senate President & House Speaker to Urge Passage of Bill </p>
-	<p class="text_column"> Senate or House to Vote on Bill on the Floor </p>
-	<p class="text_column"> Bill Passes Chamber and Advances to Next Chamber </p>
+	<h2 class="hidden"> Phase 2: Coalition Building Phase </h2>
+    <p class="text_column"> Meet with like-minded groups and share your vision for change (nonprofits, cultural influencers) </p>
+	<p class="text_column"> Identify Representatives and Senators with Passion for Your Cause and Share Your Personal Story (target judiciary) </p>
+	<p class="text_column"> Find a Sponsor to Champion Your Bill, ideally one Democrat and one Republican </p>
   </section>
 	
   <section class="about" id="about">
@@ -43,7 +46,7 @@
 
   <div class="button"><a href="Rise Home Page.php" style="text-decoration:none"><font color=#000000> Logout </font></a></div>
   <div class="button-holder">
-		<a class="btn" href="map.html"> Next Page</a>
+		<a class="btn" href="phase3.php"> Next Page</a>
 	</div>
   <div class="copyright">&copy;2019 - <strong> JPMorgan Code for Good </strong></div>
 </div>

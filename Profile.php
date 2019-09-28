@@ -3,6 +3,9 @@
 <?php
 include "cleardb.php";
 
+session_start();
+
+$_SESSION["score"] = 1;
 //echo "bad";
 //add user authentication here
 $result = $conn->query("select * from users");
@@ -39,7 +42,7 @@ while ($row = $result->fetch_row())
   </header>
 	
   <div id="myProgress">
-  	<div id="myBar"> 0% </div> 
+  	<?php echo '<div id="myBar">'. $_SESSION["score"]  . '</div>'; ?>
   </div>
   <section class="about" id="about">
 	<h2 class="hidden"> Phase 1: Research Phase </h2>
@@ -58,7 +61,7 @@ while ($row = $result->fetch_row())
 						<a class="btn" href="Rise Home Page.php"> Home Page</a>
   </div>
   <div class="button-holder">
-						<a class="btn" href="phase2.html"> Next Page</a>
+						<a class="btn" href="phase2.php"> Next Page</a>
 	</div>
   <div class="copyright">&copy;2019 - <strong> JPMorgan Code for Good </strong></div>
 </div>
