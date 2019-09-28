@@ -55,11 +55,7 @@
                             var area = polys[i].Area() / 1000000;
                             var sqmiles = area / 2.58998811;
                             var T2 = new Date();
-                            map.openInfoWindowHtml(point, "You clicked on " + labels[i] + "<br>The area of " + labels[i] + " is " + parseInt(area)
-                                + " sq km.<br>that's " + parseInt(sqmiles) + " square miles<br>"
-                                + "Its boundary is " + parseInt(polys[i].Distance() / 1609.344) + " miles long"
-                                + "<hr>Time taken = " + (T2.getTime() - T1.getTime()) + " milliseconds"
-                            ); i = 999; // Jump out of loop
+                            i = 999; // Jump out of loop
                         }
                     }
                 }
