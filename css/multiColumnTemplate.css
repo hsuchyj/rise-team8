@@ -70,7 +70,7 @@ ul li:hover a {
 	letter-spacing: 10px;
 }
 .hero {
-	background-image: url("../Activism.png");
+	background-image: url("/images/Activism.png");
 	background-size: cover;
 	background-position: top;
 	width: 100%;
