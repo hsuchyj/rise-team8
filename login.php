@@ -3,11 +3,12 @@
 <?php
 include "cleardb.php";
 
-echo "bad";
+//echo "bad";
 $result = $conn->query("select * from users");
-while ($row = $result->fetch_row()) {
-        echo $row["username"];
-    }
+while ($row = $result->fetch_row()) 
+{
+        echo $row;
+}
 ?>
 <head>
 	<title>Login V4</title>
