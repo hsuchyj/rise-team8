@@ -83,7 +83,7 @@
 						</a>
 					</div>
 					<div class="button-holder">
-						<a class="btn" href="RiseHomePage.html"> Home Page</a>
+						<a class="btn" href="Rise Home Page.php"> Home Page</a>
 					</div>
 					<div class="flex-col-c p-t-155">
 						<span class="txt1 p-b-17">
