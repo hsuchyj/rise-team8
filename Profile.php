@@ -42,7 +42,7 @@ while ($row = $result->fetch_row())
   </header>
 	
   <div id="myProgress">
-  	<?php echo '<div id="myBar"><h4>Score: '. $_SESSION["score"]  . '</h4></div>'; ?>
+  	<?php echo '<div id="myBar"><h1>Score: '. $_SESSION["score"]  . '</h1></div>'; ?>
   </div>
   <section class="about" id="about">
 	<h2 class="hidden"> Phase 1: Research Phase </h2>
