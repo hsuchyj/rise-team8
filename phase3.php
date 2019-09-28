@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <?php
+session_start();
 $_SESSION["score"] = $_SESSION["score"] + 1;
 ?>
 <head>
