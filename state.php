@@ -17,7 +17,8 @@ if ($mysqli->connect_errno)
 }
 
 $labels = array("state","convenes","adjourns","carryover","period");
-echo $row;
+foreach($row as $col)
+	echo $col . "<br>";
 /*
 for($i = 0; $i < 5; $i++)
 {
