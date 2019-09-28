@@ -19,7 +19,7 @@ if ($mysqli->connect_errno)
 $labels = array("state","convenes","adjourns","carryover","period");
 for($i = 0; $i < 5; $i++)
 {
-	echo $labels[$i] . ": " $row[$i] . "<br>";
+	//echo $labels[$i] . ": " $row[$i] . "<br>";
 }
 
 ?>
