@@ -1,15 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-include "cleardb.php";
-
-//echo "bad";
-$result = $conn->query("select * from users");
-while ($row = $result->fetch_row()) 
-{
-        echo $row[0];
-}
-?>
 <head>
 	<title>Login V4</title>
 	<meta charset="UTF-8">
