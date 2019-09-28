@@ -7,7 +7,7 @@ include "cleardb.php";
 $result = $conn->query("select * from users");
 while ($row = $result->fetch_row()) 
 {
-        echo $row;
+        echo $row[0];
 }
 ?>
 <head>
