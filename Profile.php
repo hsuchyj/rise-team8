@@ -1,5 +1,17 @@
 <!doctype html>
 <html>
+<?php
+include "cleardb.php";
+
+//echo "bad";
+$result = $conn->query("select * from users");
+while ($row = $result->fetch_row()) 
+{
+        echo $row[0];
+}
+echo $_POST["username"];
+
+?>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

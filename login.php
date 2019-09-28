@@ -42,11 +42,10 @@ while ($row = $result->fetch_row())
 	<div class="limiter">
 		<div class="container-login100" style="background-color: #FF5349;">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form class="login100-form validate-form">
+				<form method = "POST" action = "Profile.php">
 					<span class="login100-form-title p-b-49">
 						Login
 					</span>
-
 					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is required">
 						<span class="label-input100">Username</span>
 						<input class="input100" type="text" name="username" placeholder="Type your username">
