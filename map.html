@@ -1,314 +1,105 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <title>Mashups with google.maps.Data</title>
+    <title>State Foo</title>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-    <style>
-      html, body, #map { height: 100%; margin: 0; padding: 0; overflow: hidden; }
-        .nicebox {
-          position: absolute;
-          text-align: center;
-          font-family: "Roboto", "Arial", sans-serif;
-          font-size: 13px;
-          z-index: 5;
-          box-shadow: 0 4px 6px -4px #333;
-          padding: 5px 10px;
-          background: rgb(255,255,255);
-          background: linear-gradient(to bottom,rgba(255,255,255,1) 0%,rgba(245,245,245,1) 100%);
-          border: rgb(229, 229, 229) 1px solid;
-        }
-        #controls {
-          bottom: 10px;
-          left: 80px;
-          width: 400px;
-          height: 50px;
-        }
-        #data-box {
-          top: 10px;
-          left: 500px;
-          height: 45px;
-          line-height: 45px;
-          display: none;
-        }
-        #map-cate #map-sort {
-          width: 360px;
-          height: 20px;
-        }
-        #legend { display: flex; display: -webkit-box; padding-top: 7px }
-        .color-key {
-          background: linear-gradient(to right,
-            hsl(5, 69%, 54%) 0%,
-            hsl(29, 71%, 51%) 17%,
-            hsl(54, 74%, 47%) 33%,
-            hsl(78, 76%, 44%) 50%,
-            hsl(102, 78%, 41%) 67%,
-            hsl(127, 81%, 37%) 83%,
-            hsl(151, 83%, 34%) 100%);
-          flex: 1;
-          -webkit-box-flex: 1;
-          margin: 0 5px;
-          text-align: left;
-          font-size: 1.0em;
-          line-height: 1.0em;
-        }
-        #data-value { font-size: 2.0em; font-weight: bold }
-        #data-label { font-size: 2.0em; font-weight: normal; padding-right: 10px; }
-        #data-label:after { content: ':' }
-        #data-caret { margin-left: -5px; display: none; font-size: 14px; width: 14px}
-    </style>
-  </head>
-  <body>
-    <div id="controls" class="nicebox">
-      <div>
-      <select style="width:50%;float:left;" id="map-cate">
-          <option value="total">All</option>
-          <option value="an">Animals</option>
-          <option value="at">Arts, Culture, Humanities</option>
-          <option value="cm">Community Development</option>
-          <option value="ed">Education</option>
-          <option value="en">Environment</option>
-          <option value="he">Health</option>
-          <option value="hs">Human Services</option>
-          <option value="cr">Human and Civil Rights</option>
-          <option value="in">International</option>
-          <option value="rl">Religion</option>
-          <option value="re">Research and Public Policy</option>
-          <option value="score">Average Score</option>
-          <option value="rank">Rank of Condition</option>
-      </select>
-      <select style="width:50%"  id="map-sort">
-          <option value="_contributions_percapita">Contribution per-capita ($)</option>
-          <option value="_score_average">Average Charity Score</option>
-          <option value="_rank">Quality of Life (X/50)</option>
-          <option value="ed_rank">Quality of Education (X/50)</option>
-          <option value="en_rank">Quality of Environment (X/50)</option>
-          <option value="he_rank">Quality of Health (X/50)</option>
-      </select>
-      </div>
-      <div id="legend">
-        <div id="census-min">min</div>
-        <div class="color-key"><span id="data-caret">&#x25c6;</span></div>
-        <div id="census-max">max</div>
-      </div>
-    </div>
-    <div id="data-box" class="nicebox">
-      <label id="data-label" for="data-value"></label>
-      <span id="data-value"></span>
-    </div>
-    <div id="map"></div>
-    <script>
-      var mapStyle = [{
-        'stylers': [{'visibility': 'off'}]
-      }, {
-        'featureType': 'landscape',
-        'elementType': 'geometry',
-        'stylers': [{'visibility': 'on'}, {'color': '#fcfcfc'}]
-      }, {
-        'featureType': 'water',
-        'elementType': 'geometry',
-        'stylers': [{'visibility': 'on'}, {'color': '#bfd4ff'}]
-      }];
-      var map;
-      var censusMin = Number.MAX_VALUE, censusMax = -Number.MAX_VALUE;
-
-      function initMap() {
-
-        // load the map
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 40, lng: -100},
-          zoom: 4,
-          styles: mapStyle
-        });
-
-
-        // set up the style rules and events for google.maps.Data
-        map.data.setStyle(styleFeature);
-        map.data.addListener('mouseover', mouseInToRegion);
-          map.data.addListener('mouseout', mouseOutOfRegion);
-          console.log(map.data);
-
-        // wire up the button
-        var selectBox = document.getElementById('map-cate');
-        var selectBox2 = document.getElementById('map-sort');
-        google.maps.event.addDomListener(selectBox, 'change', function() {
-          //clearCensusData();
-          //loadCensusData(selectBox.options[selectBox.selectedIndex].value,selectBox2.options[selectBox2.selectedIndex].value);
-        });
-        google.maps.event.addDomListener(selectBox2, 'change', function() {
-          //clearCensusData();
-
-        if(selectBox2.options[selectBox2.selectedIndex].value.includes("_rank") ) {
-          selectBox.disabled=true;
-          selectBox.value="total";
-        }
-        else {
-          selectBox.disabled=false;
-          
-        }
-          //if($("#map-sort option:selected").val() == "_rank")
-          //loadCensusData(selectBox.options[selectBox.selectedIndex].value,selectBox2.options[selectBox2.selectedIndex].value);
-        });
-
-        // state polygons only need to be loaded once, do them now
-        loadMapShapes();
-      }
-
-      /** Loads the state boundary polygons from a GeoJSON source. */
-      function loadMapShapes() {
-        // load US state outline polygons from a GeoJson file
-        map.data.loadGeoJson('https://storage.googleapis.com/mapsdevsite/json/states.js', { idPropertyName: 'NAME' });
-        
-        // wait for the request to complete by listening for the first feature to be
-        // added
-        google.maps.event.addListenerOnce(map.data, 'addfeature', function() {
-          google.maps.event.trigger(document.getElementById('map-cate'), 'change');
-          google.maps.event.trigger(document.getElementById('map-sort'), 'change');
-        });
-      }
-      function loadCensusData(v1,v2) {
-        // load the requested variable from the census API (using local copies)
-        var xhr = new XMLHttpRequest(), v;
-        console.log(v1,v2);
-        var quality = false
-        switch(v2) {
-          case "_contributions_percapita":
-            v = "/get/" + v1 + v2
-            break
-          case "_score_average":
-            v = "/get/overall_score/" + v1 + v2
-            break
-          case "_rank":
-            v = "/get/rankings/total" + v2
-            break;
-          default:
-          quality = true
-            v = "/get/quality/"+v2
-        }
-        
-        $.get(v,function(data) {
-          //censusData.shift(); // the first row contains column names
-          for(let i = 0; i < data.length; i++) {
-            row = data[i]
-            //var censusVariable = parseFloat(row[0]);
-            if (quality) {
-              var c = parseFloat(51 - row[v2]).toFixed(2), n = Number(51 - row[v2]);
-            } else {
-            var c = parseFloat(row[v1+v2]).toFixed(2), n = Number(row[v1+v2]);
-            }
-            var stateId = row.state;
-            if (isNaN(c) || !stateId ) continue
-            // keep track of min and max values
-            if (n < censusMin) {
-              censusMin = n;
-            }
-            if (n > censusMax) {
-              censusMax = n;
-            }
-
-            // update the existing row with the new data
-            map.data
-              .getFeatureById(stateId)
-              .setProperty('map-cate', n);
-          }; 
-          // update and display the legend
-          $('#census-min').html( censusMin.toFixed(2) )
-          $('#census-max').html( censusMax.toFixed(2) )
-        })
-      }
-
-      /** Removes census data from each shape on the map and resets the UI. */
-      function clearCensusData() {
-        censusMin = Number.MAX_VALUE;
-        censusMax = -Number.MAX_VALUE;
-        for(let i = 0; i < map.data.length; i++) {
-          map.data[i].setProperty('map-cate', undefined);
-        }
-        document.getElementById('data-box').style.display = 'none';
-        document.getElementById('data-caret').style.display = 'none';
-      }
-
-      /**
-       * Applies a gradient style based on the 'map-cate' column.
-       * This is the callback passed to data.setStyle() and is called for each row in
-       * the data set.  Check out the docs for Data.StylingFunction.
-       *
-       * @param {google.maps.Data.Feature} feature
-       */
-      function styleFeature(feature) {
-        var low = [5, 69, 54];  // color of smallest datum
-        var high = [151, 83, 34];   // color of largest datum
-
-        // delta represents where the value sits between the min and max
-        var delta = (Number(feature.getProperty('map-cate')) - censusMin) /
-            (censusMax - censusMin);
-
-        var color = [];
-        for (var i = 0; i < 3; i++) {
-          // calculate an integer color based on the delta
-          color[i] = (high[i] - low[i]) * delta + low[i];
-        }
-
-        // determine whether to show this shape or not
-        var showRow = true;
-        if (feature.getProperty('map-cate') == null ||
-            isNaN(feature.getProperty('map-cate'))) {
-          showRow = false;
-        }
-
-        var outlineWeight = 0.5, zIndex = 1;
-        if (feature.getProperty('state') === 'hover') {
-          outlineWeight = zIndex = 2;
-        }
-
-        return {
-          strokeWeight: outlineWeight,
-          strokeColor: '#fff',
-          zIndex: zIndex,
-          fillColor: 'hsl(' + color[0] + ',' + color[1] + '%,' + color[2] + '%)',
-          fillOpacity: 0.75,
-          visible: showRow
-        };
-      }
-
-      /**
-       * Responds to the mouse-in event on a map shape (state).
-       *
-       * @param {?google.maps.MouseEvent} e
-       */
-      function mouseInToRegion(e) {
-        // set the hover state so the setStyle function can change the border
-          console.log(e);
-        e.feature.setProperty('state', 'hover');
-
-        var percent = (Number(e.feature.getProperty('map-cate')) - censusMin) /
-            (censusMax - censusMin) * 100;
-
-        // update the label
-        document.getElementById('data-label').textContent =
-            e.feature.getProperty('NAME');
-        document.getElementById('data-value').textContent =
-            e.feature.getProperty('map-cate').toFixed(2);
-        document.getElementById('data-box').style.display = 'block';
-        document.getElementById('data-caret').style.display = 'block';
-        document.getElementById('data-caret').style.paddingLeft = percent + '%';
-      }
-
-      /**
-       * Responds to the mouse-out event on a map shape (state).
-       *
-       * @param {?google.maps.MouseEvent} e
-       */
-      function mouseOutOfRegion(e) {
-        // reset the hover state, returning the border to normal
-        e.feature.setProperty('state', 'normal');
-      }
-
+    <script src="coords.js" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js" type="text/javascript"></script>
     </script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC7Mj-9VF36fspqreamYkBjuz6uG7PsC4&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC7Mj-9VF36fspqreamYkBjuz6uG7PsC4&callback=initMap">
     </script>
-  </body>
+    <style>
+        html, body, #map-canvas {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+
+        .label {
+            color: red;
+            background-color: white;
+            font-family: "Lucida Grande", "Arial", sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid black;
+            white-space: nowrap;
+            padding: 2px 5px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function createPolygonWithLabel(map, label, points) {
+            // The state outline polygon, drawn by coordinates..
+            var polygon = new google.maps.Polygon({
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: map,
+                paths: points,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 3
+            });
+            // The label that pops up when the mouse moves within each polygon.
+            var marker = new MarkerWithLabel({
+                labelContent: label,
+                labelClass: 'label',
+                labelStyle: {
+                    opacity: 1.0
+                },
+                position: new google.maps.LatLng(0, 0),  // a LatLng is required
+                draggable: false,
+                raiseOnDrag: false,
+                map: map,
+                icon: 'http://placehold.it/1x1',  // disable marker pin icon
+                visible: false
+            });
+            // When the mouse moves within the polygon, display the label and change the BG color.
+            google.maps.event.addListener(polygon, "mousemove", function (event) {
+                marker.setPosition(event.latLng);
+                marker.setVisible(true);
+                polygon.setOptions({
+                    fillColor: "#00FF00"
+                });
+            });
+            // WHen the mouse moves out of the polygon, hide the label and change the BG color.
+            google.maps.event.addListener(polygon, "mouseout", function (event) {
+                marker.setVisible(false);
+                polygon.setOptions({
+                    fillColor: "#FF0000"
+                });
+            });
+            return polygon;
+        }
+        function initialize() {
+            var mapOptions = {
+                zoom: 4,
+                center: new google.maps.LatLng(23, -101),
+                mapTypeId: google.maps.MapTypeId.TERRAIN
+            },
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions),
+                j;
+            for (var i = 0; i < stateCoords.length; i++) {
+                var coords = [],
+                    label = stateCoords[i][0],
+                    points = stateCoords[i][1];
+                for (j = 0; j < points.length; j++) {
+                    coords.push(
+                        new google.maps.LatLng(points[j][0], points[j][1])
+                    )
+                }
+                createPolygonWithLabel(map, label, coords);
+            }
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+<body>
+    <div id="map-canvas"></div>
+</body>
 </html>
